@@ -1,0 +1,19 @@
+PELINEGRA.SHOP — sitio de catálogo Free Fire
+
+ARCHIVOS
+- index.html: página completa, adaptable a móvil y PC.
+- assets/: imágenes recortadas de las referencias proporcionadas.
+
+CÓMO PROBAR
+1. Extrae el ZIP.
+2. Abre index.html con Chrome, Edge o Firefox.
+3. Prueba los botones Comprar y el flujo de ID; el pedido se prepara en WhatsApp.
+
+CÓMO PUBLICAR
+Sube index.html y la carpeta assets completa a tu hosting (por ejemplo, cPanel, Netlify o GitHub Pages).
+No cambies el nombre ni la ubicación de assets si no actualizas las rutas en el HTML.
+
+IMPORTANTE
+Los precios iniciales están basados en las capturas compartidas y puedes editarlos en la lista `products` dentro de index.html.
+El número de WhatsApp está configurado como 51922055086 (Perú). Revisa los precios, el número y la disponibilidad antes de publicar.
+Este sitio no cobra online ni confirma pagos automáticamente; el pedido se envía a WhatsApp para coordinar el pago y la recarga.

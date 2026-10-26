@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff5fa">
+<meta name="description" content="Catálogo de recargas — Pelinegra.shop. Diamantes, pases y membresías de Free Fire.">
+<title>Catálogo — Pelinegra.shop</title>
+<style>
+:root{--bg:#fff7fb;--pink:#ec75a9;--pink2:#f4a6ca;--mint:#b45d89;--text:#352334;--muted:#897483;--gold:#d79a48}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 8% 0%,#ffe0ee 0,transparent 38%),radial-gradient(ellipse at 95% 18%,#eee3ff 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}
+.wrap{width:min(1160px,calc(100% - 34px));margin:auto}
+
+/* ── NAV ── */
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:1.2rem;letter-spacing:-.04em}
+.brand-mark{width:60px;height:60px;display:grid;place-items:center;border-radius:0;background:transparent;box-shadow:none;color:#211321;font-size:1.25rem}
+.brand small{display:block;font-size:.65rem;color:var(--muted);font-weight:600;letter-spacing:.12em}
+.navlinks{display:flex;gap:22px;color:#765f72;font-size:.9rem}
+.navlinks a:hover{color:var(--pink2)}
+.btn-back{border:1px solid #ead8e4;background:#fffafd;color:#68495e;border-radius:999px;padding:10px 16px;font-size:.85rem;font-weight:700;cursor:pointer;display:inline-flex;gap:6px;align-items:center;text-decoration:none;transition:background .2s}
+.btn-back:hover{background:#ffffff14}
+.btn,.nav-cta{border:0;border-radius:999px;background:linear-gradient(100deg,var(--pink),#c8a0ff);color:#231524;font-weight:850;padding:12px 19px;cursor:pointer;box-shadow:0 8px 26px #ff6fae25;transition:transform .2s,filter .2s}
+.btn:hover,.nav-cta:hover{transform:translateY(-2px);filter:brightness(1.08)}
+
+/* ── CATALOG ── */
+.catalog-page{padding:16px 0 60px}
+.catalog-header{margin-bottom:20px}
+.catalog-header h1{font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.05em;margin:0 0 6px}
+.catalog-header p{color:var(--muted);font-size:.9rem;margin:0}
+.catalog-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.count{border:1px solid #efdce7;background:#fffafd;border-radius:999px;padding:8px 13px;color:#765f72;font-size:.8rem;white-space:nowrap}
+.cat-section{margin-bottom:36px;scroll-margin-top:16px}
+.cat-title{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #f0dfe9}
+.cat-icon{font-size:1.6rem;line-height:1}
+.cat-title h2{margin:0 0 3px;font-size:1.2rem;letter-spacing:-.04em}
+.cat-title p{margin:0;font-size:.78rem;color:var(--muted)}
+.category-tabs{display:flex;gap:8px;margin:0 0 24px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.category-tabs::-webkit-scrollbar{display:none}
+.tab{border:1px solid #efdce7;background:#fff;color:#765f72;border-radius:999px;padding:9px 15px;cursor:pointer;font-weight:750;font-size:.85rem;white-space:nowrap;flex-shrink:0;text-decoration:none;display:inline-block;transition:background .2s}
+.tab:hover,.tab.active{background:#fff;color:#b64d81;border-color:#ef9cc2}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.product{position:relative;overflow:hidden;border:1px solid #f0dce8;border-radius:20px;background:linear-gradient(145deg,#fff,#fff7fb);transition:transform .22s,border-color .22s,box-shadow .22s}
+.product:hover{transform:translateY(-4px);border-color:#e9a0c3;box-shadow:0 12px 30px #9e5d7a18}
+.product-art{height:205px;display:grid;place-items:center;position:relative;background:radial-gradient(ellipse at 50% 60%,#8c77ff12,transparent 60%),linear-gradient(135deg,#ffffff03,#ffffff00);border-bottom:1px solid #f0dfe9;padding:12px}
+.product-art img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 10px 15px #0004);transition:transform .3s}
+.product:hover .product-art img{transform:scale(1.05)}
+.tag{position:absolute;left:12px;top:12px;border-radius:8px;background:linear-gradient(100deg,#ff5c8a,#ff8c47);padding:5px 9px;font-size:.67rem;font-weight:900;letter-spacing:.02em}
+.product-info{padding:16px}
+.product-info h3{margin:0 0 9px;font-size:1.04rem;line-height:1.35}
+.desc{color:#9a8292;font-size:.8rem;line-height:1.5;min-height:35px;margin:0 0 13px}
+.price{color:var(--mint);font-size:1.15rem;font-weight:900;letter-spacing:-.02em}
+.usd{color:#9a8292;font-size:.78rem;margin-top:4px}
+.buy{width:100%;margin-top:15px;padding:11px 15px;border:0;border-radius:12px;background:linear-gradient(100deg,#ff7db6,#c4a1ff);color:#241624;font-weight:900;cursor:pointer;transition:filter .2s,transform .2s}
+.buy:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.info-note{font-size:.78rem;color:#a99fb3;margin:18px 0 0}
+
+/* ── MODAL ── */
+.modal-backdrop{position:fixed;inset:0;background:#09070dcc;backdrop-filter:blur(9px);z-index:20;display:none;align-items:center !important;justify-content:center !important;padding:18px !important}
+.modal-backdrop.open{display:flex}
+.modal{width:min(100%,420px) !important;max-height:92svh;overflow-y:auto;border:1px solid #f0d5e4;border-radius:22px !important;background:linear-gradient(150deg,#fff,#fff5fa);box-shadow:0 20px 60px #0009;padding:18px 18px 20px !important}
+.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:2px}
+.modal h2{font-size:1.15rem;margin:0 0 3px}
+.modal-sub{color:var(--muted);font-size:.8rem;line-height:1.45;margin:0 0 12px}
+.close{border:1px solid #ead8e4;background:#fffafd;color:#68495e;width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:1.1rem;flex-shrink:0}
+.order-product{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;background:#fff4f9;border:1px solid #f0dfe9;margin:0 0 12px}
+.order-product img{width:52px;height:48px;object-fit:contain;background:#fff7fb;border-radius:8px;flex-shrink:0}
+.order-product strong{display:block;font-size:.88rem}
+.order-product small{display:block;color:var(--muted);margin-top:3px;font-size:.75rem}
+.order-product b{color:var(--mint);display:block;margin-top:3px;font-size:.88rem}
+.field{display:block;margin:0 0 10px}
+.field label{display:block;font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:5px;letter-spacing:.03em}
+.field input{width:100%;background:#fff;border:1px solid #e5cbdc;color:#352334;border-radius:11px;padding:12px 13px;outline:none;font-size:.95rem}
+.field input:focus{border-color:#ff8dc4;box-shadow:0 0 0 3px #ff8dc41b}
+.warning{padding:9px 11px;border-radius:10px;background:#fff5e5;border:1px solid #f0d6a8;color:#8a5a27;font-size:.75rem;line-height:1.5;margin-bottom:8px}
+.checkline{display:flex;gap:9px;align-items:flex-start;color:#d8cddd;font-size:.78rem;line-height:1.45;margin:8px 0 12px}
+.checkline input{accent-color:#ff80b8;margin-top:3px;flex-shrink:0}
+.modal-actions{display:flex;gap:8px}
+.modal-actions button{flex:1;padding:13px}
+.error{display:none;color:#bd466f;font-size:.82rem;margin-top:8px}
+.error.show{display:block}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#fff;border:1px solid #efdce7;border-radius:13px;padding:12px 17px;z-index:30;display:none;box-shadow:0 10px 40px #0008;font-size:.85rem}
+
+/* ── FOOTER ── */
+.site-footer{border-top:1px solid #f0dfe9;margin-top:8px;padding:20px 0;color:#9a8292;font-size:.82rem}
+.foot{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:4px;flex-wrap:wrap}
+.foot strong{color:#5b3d53}
+.foot span{font-size:.65rem}
+.foot-disclaimer{color:#b2a0ad;font-size:.7rem}
+
+/* ══ MÓVIL ══ */
+@media(max-width:780px){
+  .navlinks{display:none}
+  nav{padding:11px 0}
+  .brand{font-size:.95rem}
+  .brand-mark{width:60px;height:60px;font-size:.95rem}
+  .catalog-header{margin-bottom:12px}
+  .catalog-header h1{font-size:1.25rem;margin:0 0 3px}
+  .catalog-header p{font-size:.8rem}
+  .category-tabs{gap:6px;margin:0 0 14px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .category-tabs::-webkit-scrollbar{display:none}
+  .tab{padding:8px 12px;font-size:.8rem;white-space:nowrap;flex-shrink:0}
+  .count{font-size:.72rem;padding:6px 10px}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .product-art{height:110px;padding:8px}
+  .product-info{padding:9px 10px 10px}
+  .product-info h3{font-size:.82rem;margin:0 0 4px}
+  .desc{font-size:.72rem;min-height:unset;margin:0 0 6px;line-height:1.4}
+  .price{font-size:.92rem}
+  .usd{font-size:.7rem;margin-top:2px}
+  .buy{padding:9px 10px;font-size:.8rem;margin-top:8px;border-radius:10px}
+}
+@media(max-width:400px){
+  .wrap{width:calc(100% - 20px)}
+  .products{gap:7px}
+  .product-art{height:100px}
+  .modal{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Ajustes mobile-first Pelinegra */
+:root{color-scheme:light}
+html{scroll-padding-top:12px}
+body{min-height:100vh}
+button,a,input{-webkit-tap-highlight-color:transparent}
+button,a{touch-action:manipulation}
+.wrap{width:min(1160px,calc(100% - 28px))}
+nav{padding:13px 0}
+.brand{gap:9px}
+.brand-mark{border-radius:0;background:transparent;box-shadow:none}
+.btn,.nav-cta{background:linear-gradient(100deg,#f3a1c5,#d9baff);color:#432a3e;box-shadow:0 5px 18px #d98cb51f}
+.catalog-page{padding:12px 0 42px}
+.catalog-header{padding:17px 16px;border:1px solid #f1dce8;border-radius:20px;background:linear-gradient(135deg,#fff5fa,#f9f0ff);margin-bottom:17px;position:relative;overflow:hidden}
+.catalog-header::before{content:"";position:absolute;right:-20px;top:-20px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#f6c8df,transparent 70%);pointer-events:none}
+.catalog-header h1{color:#56374f;position:relative}
+.catalog-header p{line-height:1.5;position:relative}
+.catalog-top{display:block;margin-bottom:20px}
+.category-tabs{margin-bottom:0;gap:8px;padding:2px 1px 8px}
+.tab{padding:10px 14px;min-height:42px;display:inline-flex;align-items:center}
+.cat-section{margin-bottom:30px;scroll-margin-top:12px}
+.cat-title{gap:10px;margin-bottom:12px;padding-bottom:11px}
+.cat-title h2{color:#56374f}
+.products{gap:12px}
+.product{box-shadow:0 5px 18px #8d5a7410}
+.product-art{background:radial-gradient(ellipse at 50% 60%,#f3d8e8 0,transparent 65%),linear-gradient(135deg,#fff,#fff7fb)}
+.product-info h3{color:#4e3448}
+.price{color:#ad4f7f}
+.buy{background:linear-gradient(100deg,#f5a3c7,#d9bdff);color:#432a3e;min-height:43px;box-shadow:0 4px 12px #d98cb51c}
+.info-note{line-height:1.6;background:#fffafd;border:1px solid #f0dfe9;border-radius:13px;padding:12px}
+.site-footer{padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+.modal-backdrop{padding:12px!important;align-items:center!important}
+.modal{width:100%!important;max-width:460px!important;max-height:calc(92dvh - env(safe-area-inset-top));padding:18px 16px calc(18px + env(safe-area-inset-bottom))!important;border-radius:24px 24px 18px 18px!important;box-shadow:0 12px 50px #70405b24}
+.field input{min-height:48px;font-size:16px}
+.checkline{font-size:.82rem;gap:10px}
+.checkline input{width:18px;height:18px}
+.modal-actions button{min-height:47px}
+.close{width:40px;height:40px;font-size:1.35rem}
+.toast{width:calc(100% - 28px);text-align:center;bottom:calc(16px + env(safe-area-inset-bottom))}
+@media(max-width:480px){
+  .wrap{width:calc(100% - 22px)}
+  .brand{font-size:.92rem}
+  .brand small{font-size:.58rem}
+  .btn-back{padding:9px 12px;font-size:.78rem}
+  .catalog-header{padding:15px 14px}
+  .catalog-header h1{font-size:1.5rem}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .product{border-radius:16px}
+  .product-art{height:clamp(98px,29vw,132px);padding:7px}
+  .tag{top:7px;left:7px;padding:4px 6px;font-size:.6rem}
+  .product-info{padding:10px 9px 11px}
+  .product-info h3{font-size:.83rem;line-height:1.3}
+  .desc{font-size:.71rem;line-height:1.35}
+  .price{font-size:.91rem}
+  .usd{font-size:.67rem;overflow-wrap:anywhere}
+  .buy{font-size:.76rem;padding:10px 6px;min-height:42px}
+  .cat-title h2{font-size:1.08rem}
+  .cat-title p{font-size:.73rem}
+  .modal-sub{font-size:.78rem}
+}
+@media(max-width:340px){
+  .wrap{width:calc(100% - 16px)}
+  .products{gap:7px}
+  .product-info{padding:8px}
+  .product-info h3{font-size:.78rem}
+  .price{font-size:.85rem}
+  .buy{font-size:.72rem}
+  .btn-back{padding:8px 9px}
+}
+@media(min-width:781px){
+  .modal-backdrop{align-items:center!important}
+  .modal{border-radius:22px!important;padding:22px!important}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+</style>
+</head>
+<body>
+<header class="wrap">
+  <nav>
+    <a class="brand" href="index.html" aria-label="Pelinegra.shop inicio"><span class="brand-mark"><img src="assets/logo.webp" alt="Pelinegra.shop" style="width:100%;height:100%;object-fit:contain"></span><span>pelinegra.shop<small>RECARGAS CON ESTILO</small></span></a>
+    <div class="navlinks">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#como-comprar">Cómo comprar</a>
+    </div>
+    <a class="btn-back" href="index.html">← Volver</a>
+  </nav>
+</header>
+
+<main class="wrap catalog-page">
+  <div class="catalog-header">
+    <h1>Catálogo ✨</h1>
+    <p>Elige tu recarga y arma tu pedido por WhatsApp.</p>
+  </div>
+  <div class="catalog-top">
+    <div class="category-tabs" role="tablist" aria-label="Categorías">
+      <a class="tab active" href="#diamantes">💎 Diamantes</a>
+      <a class="tab" href="#items">🎁 Otros ítems</a>
+      <a class="tab" href="#membresias">👑 Membresías</a>
+    </div>
+  </div>
+
+  <section class="cat-section" id="diamantes">
+    <div class="cat-title"><span class="cat-icon">💎</span><div><h2>Diamantes</h2><p>Recargas para tu cuenta Free Fire</p></div></div>
+    <div class="products" id="grid-diamonds"></div>
+  </section>
+
+  <section class="cat-section" id="items">
+    <div class="cat-title"><span class="cat-icon">🎁</span><div><h2>Otros ítems</h2><p>Pases, fragmentos y más</p></div></div>
+    <div class="products" id="grid-items"></div>
+  </section>
+
+  <section class="cat-section" id="membresias">
+    <div class="cat-title"><span class="cat-icon">👑</span><div><h2>Membresías</h2><p>Tarjetas semanal y mensual</p></div></div>
+    <div class="products" id="grid-members"></div>
+  </section>
+
+  <p class="info-note">* Los precios mostrados son de referencia. Confirma disponibilidad antes de pagar.</p></main>
+
+<footer class="site-footer">
+  <div class="wrap foot">
+    <span><strong>pelinegra.shop</strong> · Recargas con estilo ♡ · © 2025</span>
+    <span class="foot-disclaimer">Free Fire es marca registrada de Garena. Tienda independiente.</span>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head"><div><h2 id="modalTitle">Completa tu pedido 💗</h2><p class="modal-sub">Solo falta confirmar tu ID de Free Fire.</p></div><button class="close" id="close" aria-label="Cerrar">×</button></div>
+    <div class="order-product"><img id="orderImg" src="" alt=""><div><strong id="orderName"></strong><small id="orderDesc"></small><b id="orderPrice"></b></div></div>
+    <form id="orderForm">
+      <div class="field"><label for="playerId">Tu ID de Free Fire</label><input id="playerId" name="playerId" type="text" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="Ej. 1234567890" required><div class="error" id="idError">Revisa tu ID. Debe contener entre 5 y 24 números, sin espacios.</div></div>
+      <div class="warning">⚠️ <strong>Verifica bien tu ID antes de continuar.</strong> Si escribes un ID incorrecto, la recarga podría enviarse a otra cuenta.</div>
+      <label class="checkline"><input type="checkbox" id="confirmId" required><span>Confirmo que revisé mi ID de Free Fire y que es correcto.</span></label>
+      <div class="modal-actions"><button type="button" class="btn" style="background:#fffafd;border:1px solid #ecd8e4;color:#765f72;box-shadow:none" id="cancel">Cancelar</button><button type="submit" class="btn">Continuar ↗</button></div>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const products = [
+  {id:"d110",cat:"diamonds",name:"110 diamantes",detail:"100 + 10 diamantes",price:2.85,usd:"$0.83 USD",img:"diamond_110.webp"},
+  {id:"d341",cat:"diamonds",name:"341 diamantes",detail:"310 + 31 diamantes",price:9.53,usd:"$2.77 USD",img:"diamond_341.webp"},
+  {id:"d572",cat:"diamonds",name:"572 diamantes",detail:"520 + 52 diamantes",price:13.31,usd:"$3.87 USD",img:"diamond_572.webp"},
+  {id:"d1166",cat:"diamonds",name:"1,166 diamantes",detail:"1,060 + 106 diamantes",price:24.77,usd:"$7.20 USD",img:"diamond_1166.webp"},
+  {id:"d2398",cat:"diamonds",name:"2,398 diamantes",detail:"2,180 + 218 diamantes",price:49.22,usd:"$14.31 USD",img:"diamond_2398.webp"},
+  {id:"d6160",cat:"diamonds",name:"6,160 diamantes",detail:"5,600 + 560 diamantes",price:121.90,usd:"$35.44 USD",img:"diamond_6160.webp"},
+  {id:"booyah",cat:"items",name:"Pase Booyah",detail:"Pase para tu cuenta",price:3.10,old:3.44,usd:"$0.90 USD",img:"booyah.webp",offer:true},
+  {id:"fragment",cat:"items",name:"Fragmento Universal",detail:"Fragmento universal",price:0.10,old:0.14,usd:"$0.03 USD",img:"fragment.webp",offer:true},
+  {id:"box",cat:"items",name:"Caja de Fragmentos",detail:"Caja de fragmentos Evo",price:0.52,old:0.58,usd:"$0.15 USD",img:"fragment_box.webp",offer:true},
+  {id:"weekly1",cat:"members",name:"Tarjeta Semanal Básica",detail:"Membresía semanal",price:1.38,usd:"$0.40 USD",img:"weekly_basic.webp"},
+  {id:"weekly2",cat:"members",name:"Tarjeta Semanal",detail:"Membresía semanal",price:5.85,usd:"$1.70 USD",img:"weekly_plus.webp"},
+  {id:"monthly",cat:"members",name:"Tarjeta Mensual",detail:"Membresía mensual",price:25.11,usd:"$7.30 USD",img:"monthly.webp"}
+];
+
+const money = n => n.toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2}) + " PEN";
+
+function renderGrid(gridId, cat){
+  const el = document.getElementById(gridId);
+  if(!el) return;
+  const shown = products.filter(p => p.cat === cat);
+  el.innerHTML = shown.map(p => `<article class="product">
+    <div class="product-art">${p.offer ? '<span class="tag">OFERTA</span>' : ""}
+      <img loading="lazy" src="assets/${p.img}" alt="${p.name}" onerror="this.style.opacity='.25'">
+    </div>
+    <div class="product-info">
+      <h3>${p.name}</h3>
+      <p class="desc">${p.detail}</p>
+      <span class="price">${money(p.price)}</span>
+      <div class="usd">${p.usd}</div>
+      ${p.old ? `<div class="usd" style="text-decoration:line-through;color:#a18d9b">${money(p.old)}</div>` : ""}
+      <button class="buy" data-buy="${p.id}">Comprar ahora ↗</button>
+    </div>
+  </article>`).join("");
+  el.querySelectorAll("[data-buy]").forEach(b => b.addEventListener("click", () => openOrder(products.find(p => p.id === b.dataset.buy))));
+}
+
+renderGrid("grid-diamonds", "diamonds");
+renderGrid("grid-items", "items");
+renderGrid("grid-members", "members");
+
+// Modal
+const modal = document.getElementById("modal");
+let selected_p = null;
+
+function openOrder(p){
+  selected_p = p;
+  document.getElementById("orderName").textContent = p.name;
+  document.getElementById("orderDesc").textContent = p.detail;
+  document.getElementById("orderPrice").textContent = money(p.price);
+  document.getElementById("orderImg").src = "assets/" + p.img;
+  document.getElementById("orderImg").alt = p.name;
+  document.getElementById("playerId").value = "";
+  document.getElementById("confirmId").checked = false;
+  document.getElementById("idError").classList.remove("show");
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => document.getElementById("playerId").focus(), 100);
+}
+function closeModal(){ modal.classList.remove("open"); document.body.style.overflow = ""; }
+
+document.getElementById("close").addEventListener("click", closeModal);
+document.getElementById("cancel").addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if(e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeModal(); });
+
+document.getElementById("orderForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = document.getElementById("playerId").value.trim();
+  const valid = /^\d{5,24}$/.test(id);
+  const checked = document.getElementById("confirmId").checked;
+  if(!valid){ document.getElementById("idError").classList.add("show"); document.getElementById("playerId").focus(); return; }
+  document.getElementById("idError").classList.remove("show");
+  if(!checked){ document.getElementById("confirmId").focus(); return; }
+  const phone = "51922055086";
+  const msg = [
+    "✨ *PEDIDO NUEVO — PELINEGRA.SHOP* ✨","",
+    "Hola, quiero realizar esta recarga de Free Fire:","",
+    "🎁 *Producto:* " + selected_p.name,
+    "📦 *Detalle:* " + selected_p.detail,
+    "💰 *Precio:* " + money(selected_p.price),
+    "🆔 *ID de Free Fire:* " + id,"",
+    "✅ Confirmo que revisé mi ID antes de enviar el pedido.","",
+    "💳 *Método de pago:* ¿Qué métodos están disponibles? Envíame los datos para pagar.","",
+    "Quedo pendiente de la confirmación. ¡Gracias! 💗","",
+    "🌐 pelinegra.shop"
+  ].join("\n");
+  window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(msg), "_blank", "noopener,noreferrer");
+  closeModal();
+});
+</script>
+</body>
+</html>
