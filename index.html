@@ -40,14 +40,12 @@ h1 em{font-style:normal;color:var(--pink-dark);background:linear-gradient(100deg
 .trust b{color:var(--green)}
 .hero-art{display:grid;position:relative;min-height:unset;margin:22px 0 5px;place-items:center}
 .orb{position:absolute;width:180px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 25%,#f6b7d0 0,transparent 58%),radial-gradient(circle at 70% 75%,#d8c4e4 0,transparent 55%);border:1px solid #f3dce7}
-.hero-card{position:relative;width:min(100%,355px);border:1px solid #f0d5e1;border-radius:23px;background:linear-gradient(145deg,#fff,#fff0f6);box-shadow:var(--shadow);transform:none;overflow:hidden;padding:0}
+.hero-card{position:relative;width:min(100%,355px);border:1px solid #f0d5e1;border-radius:23px;background:transparent;box-shadow:var(--shadow);transform:none;overflow:hidden;padding:0}
 .hero-card:before{display:none}
 .hero-card-top{position:absolute;top:10px;right:10px;z-index:2;display:flex;justify-content:flex-end}
-.hero-gems{position:relative;width:100%;aspect-ratio:3/1}
-.hero-gems img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:0}
-.hero-card-bottom{position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 15px;border-top:1px solid var(--line);background:#fff}
 .live{padding:6px 8px;border-radius:999px;background:#e6f4ed;color:#559579;font-size:.66rem;font-weight:850;white-space:nowrap}
-.hero-gems{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;height:110px}
+.hero-gems{position:relative;width:100%;aspect-ratio:3/1}
+.hero-gems img{width:100%;height:100%;object-fit:cover;display:block;border-radius:0}
 .gem{font-size:2.5rem;animation:float 3.6s ease-in-out infinite}
 .gem:nth-child(2){font-size:3.7rem;animation-delay:.4s}
 .gem:nth-child(3){font-size:2.3rem;animation-delay:.8s}
@@ -146,7 +144,6 @@ h1 em{font-style:normal;color:var(--pink-dark);background:linear-gradient(100deg
       <div class="hero-card">
         <div class="hero-card-top"><span></span><span class="live">● ONLINE</span></div>
         <div class="hero-gems"><img src="assets/baner.png" alt="Pelinegra Shop" style="width:100%;height:100%;object-fit:cover;border-radius:8px;margin-top:-28px"></div>
-        <div class="hero-card-bottom"><div><strong>Tu próximo nivel</strong><small>Tu recarga empieza aquí</small></div><span style="font-size:1.8rem">♡</span></div>
       </div>
     </div>
   </section>
