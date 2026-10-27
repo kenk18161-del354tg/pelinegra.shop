@@ -239,6 +239,13 @@ document.getElementById("orderForm").addEventListener("submit", e => {
 });
 
 fetchData();
+
+// Ping cada 4 min para que Supabase no se duerma
+setInterval(() => {
+  fetch(`${SUPA_URL}/rest/v1/config?select=id&limit=1`, {
+    headers:{"apikey":SUPA_KEY,"Authorization":"Bearer "+SUPA_KEY}
+  });
+}, 4 * 60 * 1000);
 </script>
 </body>
 </html>
