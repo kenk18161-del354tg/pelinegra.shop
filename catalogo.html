@@ -142,6 +142,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:4px 0;
           <button type="button" id="qtyPlus" style="width:38px;height:38px;border:1px solid #e5cbdc;border-radius:10px;background:#fff;font-size:1.2rem;cursor:pointer;color:#68495e">+</button>
         </div>
         <div style="margin-top:6px;font-size:.72rem;color:var(--muted)" id="qtyMinNote"></div>
+        <div id="qtyError" style="display:none;margin-top:5px;font-size:.75rem;color:#bd466f"></div>
       </div>
       <div class="field"><label for="playerId">Tu ID de Free Fire</label><input id="playerId" name="playerId" type="text" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="Ej. 1234567890" required><div class="error" id="idError">Revisa tu ID. Debe contener entre 5 y 24 números, sin espacios.</div></div>
       <div class="warning">⚠️ <strong>Verifica bien tu ID antes de continuar.</strong> Si escribes un ID incorrecto, la recarga podría enviarse a otra cuenta.</div>
@@ -226,16 +227,45 @@ function openOrder(p){
     qtyWrap.style.display = "block";
     priceEl.textContent = money(qty * p.precio_unitario);
 
-    const updateQty = (val) => {
-      qty = Math.max(min, parseInt(val) || min);
-      qtyVal.value = qty;
-      priceEl.textContent = money(qty * p.precio_unitario);
+    const qtyError = document.getElementById("qtyError");
+
+    const updatePrice = () => {
+      const val = parseInt(qtyVal.value);
+      if(!isNaN(val) && val >= min){
+        qty = val;
+        priceEl.textContent = money(qty * p.precio_unitario);
+        qtyError.style.display = "none";
+      } else if(!isNaN(val) && val < min){
+        qty = val; // deja escribir pero muestra error
+        priceEl.textContent = money(val * p.precio_unitario);
+        qtyError.textContent = `⚠️ El pedido mínimo es ${min} unidades.`;
+        qtyError.style.display = "block";
+      }
     };
 
-    document.getElementById("qtyMinus").onclick = () => updateQty(qty - 1);
-    document.getElementById("qtyPlus").onclick  = () => updateQty(qty + 1);
-    qtyVal.oninput = () => updateQty(qtyVal.value);
-    qtyVal.onblur  = () => updateQty(qtyVal.value);
+    document.getElementById("qtyMinus").onclick = () => {
+      const val = parseInt(qtyVal.value) || min;
+      qtyVal.value = Math.max(min, val - 1);
+      qty = parseInt(qtyVal.value);
+      priceEl.textContent = money(qty * p.precio_unitario);
+      qtyError.style.display = "none";
+    };
+    document.getElementById("qtyPlus").onclick = () => {
+      const val = parseInt(qtyVal.value) || min;
+      qtyVal.value = val + 1;
+      qty = parseInt(qtyVal.value);
+      priceEl.textContent = money(qty * p.precio_unitario);
+      qtyError.style.display = "none";
+    };
+    qtyVal.oninput = updatePrice;
+    qtyVal.onblur  = () => {
+      if(!qtyVal.value || parseInt(qtyVal.value) < min){
+        qtyVal.value = min;
+        qty = min;
+        priceEl.textContent = money(qty * p.precio_unitario);
+        qtyError.style.display = "none";
+      }
+    };
 
     Object.defineProperty(selected_p, '_qty', { get(){ return qty; }, configurable:true });
   } else {
@@ -263,6 +293,14 @@ document.getElementById("orderForm").addEventListener("submit", e => {
   document.getElementById("idError").classList.remove("show");
   if(!checked){ document.getElementById("confirmId").focus(); return; }
   const qty = selected_p.precio_unitario ? selected_p._qty : null;
+  if(selected_p.precio_unitario && qty < (selected_p.cantidad_minima || 1)){
+    const qtyError = document.getElementById("qtyError");
+    const min = selected_p.cantidad_minima || 1;
+    qtyError.textContent = `⚠️ El pedido mínimo es ${min} unidades.`;
+    qtyError.style.display = "block";
+    document.getElementById("qtyVal").focus();
+    return;
+  }
   const precioFinal = selected_p.precio_unitario ? qty * selected_p.precio_unitario : selected_p.precio_pen;
   const msg = [
     "✨ *PEDIDO NUEVO — PELINEGRA.SHOP* ✨","",
