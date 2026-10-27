@@ -200,9 +200,9 @@ h1 em{font-style:normal;color:var(--pink-dark);background:linear-gradient(100deg
       <div class="footer-mobile-top">
         <div class="footer-mobile-brand"><img src="assets/logo.webp" alt="logo" style="width:26px;height:26px;object-fit:contain"><span>pelinegra.shop</span></div>
         <div class="footer-mobile-social">
-          <a href="https://wa.me/51922055086" target="_blank" rel="noopener" class="social-btn"><img src="assets/wsp.png" alt="WhatsApp" style="width:20px;height:20px;object-fit:contain"></a>
-          <a href="#" class="social-btn"><img src="assets/ig.png" alt="Instagram" style="width:20px;height:20px;object-fit:contain"></a>
-          <a href="#" class="social-btn"><img src="assets/tiktok.png" alt="TikTok" style="width:20px;height:20px;object-fit:contain"></a>
+          <a href="https://wa.me/51922055086" target="_blank" rel="noopener" class="social-btn" id="link-wsp"><img src="assets/wsp.png" alt="WhatsApp" style="width:20px;height:20px;object-fit:contain"></a>
+          <a href="#" class="social-btn" id="link-ig"><img src="assets/ig.png" alt="Instagram" style="width:20px;height:20px;object-fit:contain"></a>
+          <a href="#" class="social-btn" id="link-tiktok"><img src="assets/tiktok.png" alt="TikTok" style="width:20px;height:20px;object-fit:contain"></a>
         </div>
       </div>
       <div class="footer-mobile-links">
@@ -258,8 +258,60 @@ h1 em{font-style:normal;color:var(--pink-dark);background:linear-gradient(100deg
 </footer>
 
 <script>
-// Animación contadores
+// Cargar config desde Supabase
+const SUPA_URL = "https://cbzerfiitwcbxboheuof.supabase.co";
+const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiemVyZmlpdHdjYnhib2hldW9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwNTk5OTMsImV4cCI6MjEwODYzNTk5M30.7mvCsMRHSGUXK6Sj4sEtpGjHO_agDTjIUI-9X4UGpJE";
+
+fetch(`${SUPA_URL}/rest/v1/config?select=clave,valor`, {
+  headers:{"apikey":SUPA_KEY,"Authorization":"Bearer "+SUPA_KEY}
+}).then(r => r.json()).then(cfg => {
+  if(!Array.isArray(cfg)) return;
+  cfg.forEach(c => {
+    if(c.clave === "whatsapp"){
+      const el = document.getElementById("link-wsp");
+      if(el) el.href = "https://wa.me/" + c.valor;
+    }
+    if(c.clave === "instagram"){
+      const el = document.getElementById("link-ig");
+      if(el){ el.href = c.valor; el.target = "_blank"; el.rel = "noopener"; }
+    }
+    if(c.clave === "tiktok"){
+      const el = document.getElementById("link-tiktok");
+      if(el){ el.href = c.valor; el.target = "_blank"; el.rel = "noopener"; }
+    }
+  });
+}).catch(e => console.error("Error cargando config:", e));
+
 function animateCount(el, target, suffix, duration){
+  const start = performance.now();
+  function update(now){
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 4);
+    el.textContent = Math.round(ease * target) + suffix;
+    if(p < 1) requestAnimationFrame(update);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(update);
+}
+const stats = [
+  {sel:'.proof-stat:nth-child(1) strong', n:500, s:'+'},
+  {sel:'.proof-stat:nth-child(2) strong', n:12,  s:'+'},
+  {sel:'.proof-stat:nth-child(3) strong', n:99,  s:'%'},
+  {sel:'.proof-stat:nth-child(4) strong', n:24,  s:'/7'},
+];
+let counted = false;
+const proofEl = document.querySelector('.proof-section');
+if(proofEl){
+  new IntersectionObserver(entries => {
+    if(entries[0].isIntersecting && !counted){
+      counted = true;
+      stats.forEach(s => { const el = document.querySelector(s.sel); if(el) animateCount(el, s.n, s.s, 1600); });
+    }
+  }, {threshold:0.3}).observe(proofEl);
+}
+</script>
+</body>
+</html>
   const start = performance.now();
   function update(now){
     const p = Math.min((now - start) / duration, 1);
