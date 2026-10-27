@@ -138,7 +138,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:4px 0;
         <label style="display:block;font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:.03em">Cantidad</label>
         <div style="display:flex;align-items:center;gap:10px">
           <button type="button" id="qtyMinus" style="width:38px;height:38px;border:1px solid #e5cbdc;border-radius:10px;background:#fff;font-size:1.2rem;cursor:pointer;color:#68495e">−</button>
-          <span id="qtyVal" style="font-size:1.1rem;font-weight:900;color:#56374f;min-width:40px;text-align:center">1</span>
+          <input type="number" id="qtyVal" inputmode="numeric" style="font-size:1.1rem;font-weight:900;color:#56374f;width:70px;text-align:center;border:1px solid #e5cbdc;border-radius:10px;padding:6px 4px;outline:none;background:#fff" value="1" min="1">
           <button type="button" id="qtyPlus" style="width:38px;height:38px;border:1px solid #e5cbdc;border-radius:10px;background:#fff;font-size:1.2rem;cursor:pointer;color:#68495e">+</button>
         </div>
         <div style="margin-top:6px;font-size:.72rem;color:var(--muted)" id="qtyMinNote"></div>
@@ -221,19 +221,22 @@ function openOrder(p){
   if(p.precio_unitario){
     const min = p.cantidad_minima || 1;
     let qty = min;
-    qtyVal.textContent = qty;
+    qtyVal.value = qty;
     qtyNote.textContent = `Mínimo ${min} unidades · S/${p.precio_unitario.toFixed(2)} c/u`;
     qtyWrap.style.display = "block";
     priceEl.textContent = money(qty * p.precio_unitario);
 
-    document.getElementById("qtyMinus").onclick = () => {
-      if(qty > min) { qty--; qtyVal.textContent = qty; priceEl.textContent = money(qty * p.precio_unitario); }
+    const updateQty = (val) => {
+      qty = Math.max(min, parseInt(val) || min);
+      qtyVal.value = qty;
+      priceEl.textContent = money(qty * p.precio_unitario);
     };
-    document.getElementById("qtyPlus").onclick = () => {
-      qty++; qtyVal.textContent = qty; priceEl.textContent = money(qty * p.precio_unitario);
-    };
-    selected_p._qty = qty;
-    // actualizar qty al enviar
+
+    document.getElementById("qtyMinus").onclick = () => updateQty(qty - 1);
+    document.getElementById("qtyPlus").onclick  = () => updateQty(qty + 1);
+    qtyVal.oninput = () => updateQty(qtyVal.value);
+    qtyVal.onblur  = () => updateQty(qtyVal.value);
+
     Object.defineProperty(selected_p, '_qty', { get(){ return qty; }, configurable:true });
   } else {
     qtyWrap.style.display = "none";
