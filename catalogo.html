@@ -95,7 +95,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:4px 0;
   .navlinks{display:none}
   nav{padding:11px 0}
   .brand{font-size:.95rem}
-  .brand-mark{width:60px;height:60px;font-size:.95rem}
+  .brand-mark{width:140px;height:140px;font-size:.95rem;overflow:visible;margin-top:-30px}
   .catalog-header{margin-bottom:12px}
   .catalog-header h1{font-size:1.25rem;margin:0 0 3px}
   .catalog-header p{font-size:.8rem}
@@ -128,7 +128,7 @@ button,a,input{-webkit-tap-highlight-color:transparent}
 button,a{touch-action:manipulation}
 .wrap{width:min(1160px,calc(100% - 28px))}
 nav{padding:13px 0}
-.brand{gap:9px}
+.brand span:not(.brand-mark){display:none}
 .brand-mark{border-radius:0;background:transparent;box-shadow:none}
 .btn,.nav-cta{background:linear-gradient(100deg,#f3a1c5,#d9baff);color:#432a3e;box-shadow:0 5px 18px #d98cb51f}
 .catalog-page{padding:12px 0 42px}
