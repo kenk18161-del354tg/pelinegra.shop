@@ -134,6 +134,15 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:4px 0;
     <div class="modal-head"><div><h2 id="modalTitle">Completa tu pedido 💗</h2><p class="modal-sub">Solo falta confirmar tu ID de Free Fire.</p></div><button class="close" id="close" aria-label="Cerrar">×</button></div>
     <div class="order-product"><img id="orderImg" src="" alt=""><div><strong id="orderName"></strong><small id="orderDesc"></small><b id="orderPrice"></b></div></div>
     <form id="orderForm">
+      <div class="qty-selector" id="qtySelectorWrap" style="display:none;margin:0 0 12px">
+        <label style="display:block;font-size:.72rem;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:.03em">Cantidad</label>
+        <div style="display:flex;align-items:center;gap:10px">
+          <button type="button" id="qtyMinus" style="width:38px;height:38px;border:1px solid #e5cbdc;border-radius:10px;background:#fff;font-size:1.2rem;cursor:pointer;color:#68495e">−</button>
+          <span id="qtyVal" style="font-size:1.1rem;font-weight:900;color:#56374f;min-width:40px;text-align:center">1</span>
+          <button type="button" id="qtyPlus" style="width:38px;height:38px;border:1px solid #e5cbdc;border-radius:10px;background:#fff;font-size:1.2rem;cursor:pointer;color:#68495e">+</button>
+        </div>
+        <div style="margin-top:6px;font-size:.72rem;color:var(--muted)" id="qtyMinNote"></div>
+      </div>
       <div class="field"><label for="playerId">Tu ID de Free Fire</label><input id="playerId" name="playerId" type="text" inputmode="numeric" autocomplete="off" maxlength="24" placeholder="Ej. 1234567890" required><div class="error" id="idError">Revisa tu ID. Debe contener entre 5 y 24 números, sin espacios.</div></div>
       <div class="warning">⚠️ <strong>Verifica bien tu ID antes de continuar.</strong> Si escribes un ID incorrecto, la recarga podría enviarse a otra cuenta.</div>
       <label class="checkline"><input type="checkbox" id="confirmId" required><span>Confirmo que revisé mi ID de Free Fire y que es correcto.</span></label>
@@ -197,12 +206,40 @@ function openOrder(p){
   selected_p = p;
   document.getElementById("orderName").textContent = p.nombre;
   document.getElementById("orderDesc").textContent = p.detalle;
-  document.getElementById("orderPrice").textContent = money(p.precio_pen);
   document.getElementById("orderImg").src = "assets/" + p.imagen;
   document.getElementById("orderImg").alt = p.nombre;
   document.getElementById("playerId").value = "";
   document.getElementById("confirmId").checked = false;
   document.getElementById("idError").classList.remove("show");
+
+  // Selector de cantidad
+  const qtyWrap = document.getElementById("qtySelectorWrap");
+  const qtyVal  = document.getElementById("qtyVal");
+  const qtyNote = document.getElementById("qtyMinNote");
+  const priceEl = document.getElementById("orderPrice");
+
+  if(p.precio_unitario){
+    const min = p.cantidad_minima || 1;
+    let qty = min;
+    qtyVal.textContent = qty;
+    qtyNote.textContent = `Mínimo ${min} unidades · S/${p.precio_unitario.toFixed(2)} c/u`;
+    qtyWrap.style.display = "block";
+    priceEl.textContent = money(qty * p.precio_unitario);
+
+    document.getElementById("qtyMinus").onclick = () => {
+      if(qty > min) { qty--; qtyVal.textContent = qty; priceEl.textContent = money(qty * p.precio_unitario); }
+    };
+    document.getElementById("qtyPlus").onclick = () => {
+      qty++; qtyVal.textContent = qty; priceEl.textContent = money(qty * p.precio_unitario);
+    };
+    selected_p._qty = qty;
+    // actualizar qty al enviar
+    Object.defineProperty(selected_p, '_qty', { get(){ return qty; }, configurable:true });
+  } else {
+    qtyWrap.style.display = "none";
+    priceEl.textContent = money(p.precio_pen);
+  }
+
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
   setTimeout(() => document.getElementById("playerId").focus(), 100);
@@ -222,12 +259,15 @@ document.getElementById("orderForm").addEventListener("submit", e => {
   if(!valid){ document.getElementById("idError").classList.add("show"); document.getElementById("playerId").focus(); return; }
   document.getElementById("idError").classList.remove("show");
   if(!checked){ document.getElementById("confirmId").focus(); return; }
+  const qty = selected_p.precio_unitario ? selected_p._qty : null;
+  const precioFinal = selected_p.precio_unitario ? qty * selected_p.precio_unitario : selected_p.precio_pen;
   const msg = [
     "✨ *PEDIDO NUEVO — PELINEGRA.SHOP* ✨","",
     "Hola, quiero realizar esta recarga de Free Fire:","",
     "🎁 *Producto:* " + selected_p.nombre,
     "📦 *Detalle:* " + selected_p.detalle,
-    "💰 *Precio:* " + money(selected_p.precio_pen),
+    ...(qty ? [`🔢 *Cantidad:* ${qty} unidades`] : []),
+    "💰 *Precio:* " + money(precioFinal),
     "🆔 *ID de Free Fire:* " + id,"",
     "✅ Confirmo que revisé mi ID antes de enviar el pedido.","",
     "💳 *Método de pago:* ¿Qué métodos están disponibles?","",
