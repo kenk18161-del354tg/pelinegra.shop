@@ -267,7 +267,7 @@ nav{padding:13px 0}
 <div class="toast" id="toast" role="status"></div>
 
 <script>
-const SUPA_URL = "https://cbzerfliitwcbxboheuof.supabase.co";
+const SUPA_URL = "https://cbzerfiitwcbxboheuof.supabase.co";
 const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiemVyZmlpdHdjYnhib2hldW9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwNTk5OTMsImV4cCI6MjEwODYzNTk5M30.7mvCsMRHSGUXK6Sj4sEtpGjHO_agDTjIUI-9X4UGpJE";
 
 const money = n => n.toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2}) + " PEN";
@@ -305,6 +305,7 @@ function renderGrid(gridId, items){
       <p class="desc">${p.detalle}</p>
       <span class="price">${money(p.precio_pen)}</span>
       <div class="usd">${p.precio_usd}</div>
+      ${p.precio_anterior ? `<div class="usd" style="text-decoration:line-through;color:#a18d9b">${money(p.precio_anterior)}</div>` : ""}
       <button class="buy" data-id="${p.id}">Comprar ahora ↗</button>
     </div>
   </article>`).join("");
