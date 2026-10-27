@@ -267,9 +267,101 @@ nav{padding:13px 0}
 <div class="toast" id="toast" role="status"></div>
 
 <script>
-const products = [
-  {id:"d110",cat:"diamonds",name:"110 diamantes",detail:"100 + 10 diamantes",price:2.85,usd:"$0.83 USD",img:"1.png"},
-  {id:"d341",cat:"diamonds",name:"341 diamantes",detail:"310 + 31 diamantes",price:9.53,usd:"$2.77 USD",img:"2.png"},
+const SUPA_URL = "https://cbzerfliitwcbxboheuof.supabase.co";
+const SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNiemVyZmlpdHdjYnhib2hldW9mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwNTk5OTMsImV4cCI6MjEwODYzNTk5M30.7mvCsMRHSGUXK6Sj4sEtpGjHO_agDTjIUI-9X4UGpJE";
+
+const money = n => n.toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2}) + " PEN";
+const modal = document.getElementById("modal");
+let selected_p = null;
+let whatsapp = "51922055086";
+
+async function fetchData(){
+  // Cargar config (whatsapp, etc.)
+  const cfgRes = await fetch(`${SUPA_URL}/rest/v1/config?select=clave,valor`, {
+    headers:{"apikey":SUPA_KEY,"Authorization":"Bearer "+SUPA_KEY}
+  });
+  const cfg = await cfgRes.json();
+  cfg.forEach(c => { if(c.clave === "whatsapp") whatsapp = c.valor; });
+
+  // Cargar productos
+  const prodRes = await fetch(`${SUPA_URL}/rest/v1/productos?select=*&order=orden.asc`, {
+    headers:{"apikey":SUPA_KEY,"Authorization":"Bearer "+SUPA_KEY}
+  });
+  const products = await prodRes.json();
+  renderGrid("grid-diamonds", products.filter(p => p.categoria === "diamonds"));
+  renderGrid("grid-items",    products.filter(p => p.categoria === "items"));
+  renderGrid("grid-members",  products.filter(p => p.categoria === "members"));
+}
+
+function renderGrid(gridId, items){
+  const el = document.getElementById(gridId);
+  if(!el) return;
+  el.innerHTML = items.map(p => `<article class="product">
+    <div class="product-art">${p.oferta ? '<span class="tag">OFERTA</span>' : ""}
+      <img loading="lazy" src="assets/${p.imagen}" alt="${p.nombre}" onerror="this.style.opacity='.25'">
+    </div>
+    <div class="product-info">
+      <h3>${p.nombre}</h3>
+      <p class="desc">${p.detalle}</p>
+      <span class="price">${money(p.precio_pen)}</span>
+      <div class="usd">${p.precio_usd}</div>
+      <button class="buy" data-id="${p.id}">Comprar ahora ↗</button>
+    </div>
+  </article>`).join("");
+  el.querySelectorAll("[data-id]").forEach(b => {
+    b.addEventListener("click", () => openOrder(items.find(p => p.id == b.dataset.id)));
+  });
+}
+
+function openOrder(p){
+  selected_p = p;
+  document.getElementById("orderName").textContent = p.nombre;
+  document.getElementById("orderDesc").textContent = p.detalle;
+  document.getElementById("orderPrice").textContent = money(p.precio_pen);
+  document.getElementById("orderImg").src = "assets/" + p.imagen;
+  document.getElementById("orderImg").alt = p.nombre;
+  document.getElementById("playerId").value = "";
+  document.getElementById("confirmId").checked = false;
+  document.getElementById("idError").classList.remove("show");
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => document.getElementById("playerId").focus(), 100);
+}
+function closeModal(){ modal.classList.remove("open"); document.body.style.overflow = ""; }
+
+document.getElementById("close").addEventListener("click", closeModal);
+document.getElementById("cancel").addEventListener("click", closeModal);
+modal.addEventListener("click", e => { if(e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeModal(); });
+
+document.getElementById("orderForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = document.getElementById("playerId").value.trim();
+  const valid = /^\d{5,24}$/.test(id);
+  const checked = document.getElementById("confirmId").checked;
+  if(!valid){ document.getElementById("idError").classList.add("show"); document.getElementById("playerId").focus(); return; }
+  document.getElementById("idError").classList.remove("show");
+  if(!checked){ document.getElementById("confirmId").focus(); return; }
+  const msg = [
+    "✨ *PEDIDO NUEVO — PELINEGRA.SHOP* ✨","",
+    "Hola, quiero realizar esta recarga de Free Fire:","",
+    "🎁 *Producto:* " + selected_p.nombre,
+    "📦 *Detalle:* " + selected_p.detalle,
+    "💰 *Precio:* " + money(selected_p.precio_pen),
+    "🆔 *ID de Free Fire:* " + id,"",
+    "✅ Confirmo que revisé mi ID antes de enviar el pedido.","",
+    "💳 *Método de pago:* ¿Qué métodos están disponibles?","",
+    "Quedo pendiente de la confirmación. ¡Gracias! 💗","",
+    "🌐 pelinegra.shop"
+  ].join("\n");
+  window.open("https://wa.me/"+whatsapp+"?text="+encodeURIComponent(msg),"_blank","noopener,noreferrer");
+  closeModal();
+});
+
+fetchData();
+</script>
+</body>
+</html>
   {id:"d572",cat:"diamonds",name:"572 diamantes",detail:"520 + 52 diamantes",price:13.31,usd:"$3.87 USD",img:"3.png"},
   {id:"d1166",cat:"diamonds",name:"1,166 diamantes",detail:"1,060 + 106 diamantes",price:24.77,usd:"$7.20 USD",img:"4.png"},
   {id:"d2398",cat:"diamonds",name:"2,398 diamantes",detail:"2,180 + 218 diamantes",price:49.22,usd:"$14.31 USD",img:"5.png"},
